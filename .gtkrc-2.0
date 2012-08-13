@@ -1,0 +1,3 @@
+include '/home/hoxnox/.gtkrc.mine'
+
+#gtk-icon-theme-name = "Faenza"

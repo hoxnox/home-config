@@ -1,0 +1,10 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_1='/etc/udev/rules.d'
+let g:netrw_dirhist_2='/etc'
+let g:netrw_dirhist_3='/home/hoxnox/devel/salary'
+let g:netrw_dirhist_4='/home/hoxnox/hoxnox.github.com/src'
+let g:netrw_dirhist_5='/home/hoxnox/devel/salary/example'
+let g:netrw_dirhist_6='/home/hoxnox'
+let g:netrw_dirhist_7='/home'
+let g:netrw_dirhist_8='/'

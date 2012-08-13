@@ -1,0 +1,19 @@
+! GTK
+Xft.dpi: 96.0
+Xft.hinting: true
+Xft.hintstyle: hintslight
+Xft.antialias: true
+Xft.rgba: none
+
+Xcursor.theme: OpenZone_Black
+! using "+" and "*" in the same time for clipboarding in XTerm
+XTerm*VT100.translations: #override <Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0)
+! Fixing meta != alt problem
+XTerm*metaSendsEscae: true
+! color settings
+XTerm*faceName: Bitstream Vera Serif Mono
+XTerm*faceSize: 10
+XTerm*background: #222222
+XTerm*foreground: #e3e3e3
+XTerm*highlightColor: #4a574d
+XTerm*eightBitInput: false
