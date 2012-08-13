@@ -1,0 +1,8 @@
+# Write your default config options here!
+msglevel=all=5
+channels=2
+zoom=1
+vo=xv
+vf=eq2
+ao=alsa
+alang=Russian,rus,ru
