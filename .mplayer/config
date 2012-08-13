@@ -6,3 +6,5 @@ vo=xv
 vf=eq2
 ao=alsa
 alang=Russian,rus,ru
+softvol=yes
+softvol-max=800
