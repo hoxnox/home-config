@@ -6,10 +6,8 @@ Xft.antialias: true
 Xft.rgba: none
 
 Xcursor.theme: OpenZone_Black
-! using "+" and "*" in the same time for clipboarding in XTerm
+! fixing cliboard problems
 XTerm*VT100.translations: #override <Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0)
-! Fixing meta != alt problem
-XTerm*metaSendsEscae: true
 ! color settings
 XTerm*faceName: Bitstream Vera Serif Mono
 XTerm*faceSize: 10
