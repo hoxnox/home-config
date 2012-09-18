@@ -110,7 +110,12 @@ layouts =
 tags = {}
 for s = 1, screen.count() do
 	-- Each screen has its own tag table.
-	tags[s] = awful.tag({ 1, 2, 3, 4, 5 }, s, awful.layout.suit.tile.top)
+	tags[s] = awful.tag({ 1, 2, 3, 4, 5 }, s, awful.layout.suit.tile.right)
+	awful.tag.setproperty(tags[s][1], "mwfact", 0.55)
+	awful.tag.setproperty(tags[s][2], "mwfact", 0.55)
+	awful.tag.setproperty(tags[s][3], "mwfact", 0.55)
+	awful.tag.setproperty(tags[s][4], "mwfact", 0.55)
+	awful.tag.setproperty(tags[s][5], "mwfact", 0.55)
 end
 -- }}}
 
@@ -489,7 +494,8 @@ awful.rules.rules = {
                      focus = true,
                      keys = clientkeys,
                      buttons = clientbuttons,
-                     size_hints_honor = false} },
+                     size_hints_honor = false},
+      callback = awful.client.setslave },
     { rule_any = { class = opacityapps },
       properties = { opacity = 0.8 } },
     { rule_any = { class = floatingapps },
