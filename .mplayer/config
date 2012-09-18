@@ -2,11 +2,8 @@
 msglevel=all=5
 channels=2
 zoom=1
-# nvidia
-vo=vdpau,xv,
-vc=ffh264vdpau,ffmpeg12vdpau,
-cache=10240
-# vf=eq2
+vo=xv
+vf=eq2
 ao=alsa
 alang=Russian,rus,ru
 softvol=yes
