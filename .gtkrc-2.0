@@ -1,3 +1,9 @@
 include '/home/hoxnox/.gtkrc.mine'
 
 #gtk-icon-theme-name = "Faenza"
+
+binding "NoKeyboardNavigation" {
+        unbind "<shift>F10"
+}
+
+class "*" binding "NoKeyboardNavigation"
