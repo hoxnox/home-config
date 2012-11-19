@@ -8,6 +8,8 @@ require("beautiful")
 require("naughty")
 -- widgets library
 require("vicious")
+require("hxcious.net_rx")
+require("hxcious.net_tx")
 
 ---{{{ Autorun
 	-- desktop
@@ -22,7 +24,7 @@ require("vicious")
 beautiful.init("/home/hoxnox/.config/awesome/themes/hoxnox.lua")
 
 -- This is used later as the default terminal, editor, etc. to run.
-terminal = "xterm"
+terminal = "terminator"
 browser = "chromium"
 filemanager = "pcmanfm"
 imcli = "pidgin"
@@ -50,7 +52,7 @@ editor_cmd = terminal .. " -e " .. editor
 		"Transmission"
 	}
 	opacityapps = {
-		"XTerm",
+		"Terminator",
 		"Gvim"
 	}
 ---}}}
@@ -111,17 +113,21 @@ tags = {}
 for s = 1, screen.count() do
 	-- Each screen has its own tag table.
 	tags[s] = awful.tag({ 1, 2, 3, 4, 5 }, s, awful.layout.suit.tile.right)
-	awful.tag.setproperty(tags[s][1], "mwfact", 0.55)
-	awful.tag.setproperty(tags[s][2], "mwfact", 0.55)
-	awful.tag.setproperty(tags[s][3], "mwfact", 0.55)
-	awful.tag.setproperty(tags[s][4], "mwfact", 0.55)
-	awful.tag.setproperty(tags[s][5], "mwfact", 0.55)
+	awful.tag.setproperty(tags[s][1], "mwfact", 0.65)
+	awful.tag.setproperty(tags[s][2], "mwfact", 0.65)
+	awful.tag.setproperty(tags[s][3], "mwfact", 0.65)
+	awful.tag.setproperty(tags[s][4], "mwfact", 0.65)
+	awful.tag.setproperty(tags[s][5], "mwfact", 0.65)
 end
 -- }}}
 
 -- {{{ separators and spaces
 separator = widget({type="textbox", align="right"})
 separator.text = '<span color="#333333">|</span>'
+uparr = widget({type="textbox", align="right"})       
+uparr.text = '<span color="#AEC6D8">⇑</span>'         
+downarr = widget({type="textbox", align="right"})
+downarr.text = '<span color="#AEC6D8">⇓</span>'
 space = widget({type="textbox", align="right"})
 space.text = " ";
 -- }}}
@@ -152,7 +158,7 @@ memwidget = awful.widget.graph()
 --memwidget = widget({type="textbox"})
 -- Progressbar properties
 memwidget:set_width(18)
-memwidget:set_height(16)
+memwidget:set_height(17)
 -- memwidget:set_vertical(true)
 memwidget:set_background_color("#333333")
 memwidget:set_border_color("#0a0a0a")
@@ -162,6 +168,30 @@ memwidget:set_color("#A5A574")
 vicious.cache(vicious.widgets.mem)
 vicious.register(memwidget, vicious.widgets.mem, "$1", 3)
 awful.widget.layout.margins[memwidget.widget] = { top = 1, right = 3 }
+
+-- Initialize widget
+net_tx_widget = awful.widget.graph()
+-- Graph properties
+net_tx_widget:set_width(18)
+net_tx_widget:set_height(17)
+net_tx_widget:set_background_color("#333333")
+net_tx_widget:set_color("#AEC6D8")
+net_tx_widget:set_border_color("#0a0a0a")
+-- Register widget
+vicious.register(net_tx_widget, vicious.widgets.net_tx, "$0", 1)
+awful.widget.layout.margins[net_tx_widget.widget] = { top = 1 }
+
+-- Initialize widget
+net_rx_widget = awful.widget.graph()
+-- Graph properties
+net_rx_widget:set_width(18)
+net_rx_widget:set_height(17)
+net_rx_widget:set_background_color("#333333")
+net_rx_widget:set_color("#AEC6D8")
+net_rx_widget:set_border_color("#0a0a0a")
+-- Register widget
+vicious.register(net_rx_widget, vicious.widgets.net_rx, "$0", 1)
+awful.widget.layout.margins[net_rx_widget.widget] = { top = 1, left = 1 }
 
 -- Initialize widget
 cpu1widget = awful.widget.graph()
@@ -238,7 +268,7 @@ batwidget:set_border_color("#8B8B69")
 batwidget:set_color("#627B8B")
 --batwidget:set_gradient_colors({ "#285577", "#285577", "#AEC6D8" })
 vicious.register(batwidget, vicious.widgets.bat, "$2", 61, "BAT0")
-awful.widget.layout.margins[batwidget.widget] = { top = 1, right = 3 }
+awful.widget.layout.margins[batwidget.widget] = { top = 1, right = 3, left = 3 }
 -- }}}
 
 -- {{{ Wibox
@@ -322,8 +352,13 @@ for s = 1, screen.count() do
         separator,
         mylswitcher.widget,
         separator,
-        netwidget.widget,
+        --netwidget.widget,
         batwidget.widget,
+        separator,
+        uparr,
+        net_tx_widget.widget,
+        downarr,
+        net_rx_widget.widget,
         memwidget.widget,
         cpu2widget.widget,
         cpu1widget.widget,
