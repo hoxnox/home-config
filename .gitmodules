@@ -1,0 +1,19 @@
+[submodule "NERDTree"]
+	path = .vim/bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree.git
+
+[submodule "DfrankUtil"]
+	path = .vim/bundle/DfrankUtil
+	url = https://github.com/vim-scripts/DfrankUtil.git
+
+[submodule "vundle"]
+	path = .vim/bundle/vundle
+	url = https://github.com/gmarik/vundle.git
+
+[submodule "indexer"]
+	path = .vim/bundle/indexer.tar.gz
+	url = https://github.com/gmarik/vundle.git
+
+[submodule "vimprj"]
+	path = .vim/bundle/vimprj
+	utl = https://github.com/vim-scripts/vimprj.git
