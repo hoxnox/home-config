@@ -1,7 +1,14 @@
 ﻿" 2010.03.11
 " hoxnox <hoxnox@gmail.com>
 
+" load vimrc.d/*.vimrc scripts
+:runtime! vimrc.d/*.vimrc
+
 filetype plugin indent on
+
+" Open the definition in a horizontal tab
+map <A-]> :sp <CR>:exec("tag ".expand("<cword>"))<CR>
+
 set sessionoptions=blank,buffers,folds,globals,options,resize,sesdir,tabpages,winpos,winsize
 set spell
 set spelllang=ru,en
@@ -69,8 +76,9 @@ let g:miniBufExplorerMoreThanOne=1
 "Tags autocomplete
 " configure tags - add additional tags here or comment out not-used ones
 set tags+=$VIM\ctags\stl
-" build tags of your own project with CTRL+F12
-map <S-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+" build tags of your own project with CTRL+F12 
+" DISABLED: use undexer instead
+" map <S-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
 " TagList on the right-hand
 let Tlist_Compact_Format = 1
