@@ -12,7 +12,7 @@
 
 [submodule "indexer"]
 	path = .vim/bundle/indexer.tar.gz
-	url = https://github.com/gmarik/vundle.git
+	url = https://github.com/vim-scripts/indexer.tar.gz.git
 
 [submodule "vimprj"]
 	path = .vim/bundle/vimprj
