@@ -16,4 +16,5 @@
 
 [submodule "vimprj"]
 	path = .vim/bundle/vimprj
-	utl = https://github.com/vim-scripts/vimprj.git
+	url = https://github.com/vim-scripts/vimprj.git
+
