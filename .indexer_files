@@ -1,0 +1,5 @@
+[PROJECTS_PARENT]
+option:ctags_params="--languages=c++,c,python,java"
+
+~/devel
+
