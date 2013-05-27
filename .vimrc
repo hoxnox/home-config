@@ -1,4 +1,5 @@
-﻿" 2010.03.11
+﻿
+@param body - HTTP body" 2010.03.11
 " hoxnox <hoxnox@gmail.com>
 
 " load vimrc.d/*.vimrc scripts
@@ -89,21 +90,26 @@ let Tlist_Sort_Type = "name"
  
 
 " OmniCppComplete
-" let OmniCpp_NamespaceSearch = 1
-" let OmniCpp_GlobalScopeSearch = 1
-" let OmniCpp_ShowAccess = 1
-" let OmniCpp_MayCompleteDot = 1
-" let OmniCpp_MayCompleteArrow = 1
-" let OmniCpp_MayCompleteScope = 1
-" let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+let OmniCpp_NamespaceSearch = 1
+let OmniCpp_GlobalScopeSearch = 1
+let OmniCpp_ShowAccess = 1
+let OmniCpp_MayCompleteDot = 1
+let OmniCpp_MayCompleteArrow = 1
+let OmniCpp_MayCompleteScope = 1
+let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 " automatically open and close the popup menu / preview window
-" au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-" set completeopt=menuone,menu,longest,preview
+au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+set completeopt=menuone,menu,longest
 
 "Set colorscheme
 colorscheme hoxnox
 
 " KEYS
+" header/source
+nnoremap <a-o> :A<CR>
+inoremap <a-o> <ESC>:A<CR>
+vnoremap <a-o> <ESC>:A<CR>
+
 " умный прыжок в начало строки
 nnoremap <silent><HOME> :call SmartHome('n')<CR>
 inoremap <silent><HOME> <C-R>=SmartHome('i')<CR>
@@ -173,7 +179,7 @@ anoremenu &File.&Preview.&Opera :!opera %<CR>
 anoremenu &File.&Preview.&Midori :!midori %<CR>
 
 " ограничитель длины строки
-set textwidth=100
+set textwidth=72
 " hi LineProximity        guibg=#3f3333
 " hi LineOverflow guibg=#553333
 " hi LineHardLimit        guibg=#550000

@@ -1,8 +1,8 @@
-let NERDTreeWinSize=17
-autocmd VimEnter * NERDTree
-"autocmd BufEnter * NERDTreeMirror
+" let NERDTreeWinSize=17
+" autocmd VimEnter * NERDTree
+" autocmd BufEnter * NERDTreeMirror
 
-let Tlist_WinWidth = 16
-autocmd VimEnter * TlistOpen
+" let Tlist_WinWidth = 16
+" autocmd VimEnter * TlistOpen
 
-autocmd VimEnter * wincmd h
+" autocmd VimEnter * wincmd h

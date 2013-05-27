@@ -5,6 +5,7 @@ call vundle#rc()
 
 " let Vundle manage itself
 Bundle 'gmarik/vundle'
+Bundle 'kien/ctrlp.vim'
 
 " bundles
 Bundle 'scrooloose/nerdtree'
