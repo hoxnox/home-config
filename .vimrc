@@ -103,6 +103,8 @@ set completeopt=menuone,menu,longest
 
 "Set colorscheme
 colorscheme hoxnox
+set colorcolumn=+1,+9
+
 
 " KEYS
 " header/source
