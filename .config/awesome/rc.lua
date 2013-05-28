@@ -17,11 +17,15 @@ require("hxcious.net_tx")
 	-- volume
 	awful.util.spawn_with_shell("if [[ `ps -A | grep volumeicon | awk '$4 ~ /volumeicon/ {print 1}'` != 1 ]]; then volumeicon &>/dev/null & fi")
 	-- compisiting
-	awful.util.spawn_with_shell("xcompmgr -cF &")
+	awful.util.spawn_with_shell("if [[ `ps -A | grep xcompmgr | awk '$4 ~ /xcompmgr/ {print 1}'` != 1 ]]; then xcompmgr -cF &>/dev/null & fi")
+	awful.util.spawn_with_shell("if [[ `ps -A | grep dropbox | awk '$4 ~ /dropbox/ {print 1}'` != 1 ]]; then dropbox &>/dev/null & fi")
+	-- awful.util.spawn_with_shell("if [[ `ps -A | grep pidgin | awk '$4 ~ /pidgin/ {print 1}'` != 1 ]]; then pidgin &>/dev/null & fi")
 ---}}}
 
 -- theme
 beautiful.init("/home/hoxnox/.config/awesome/themes/hoxnox.lua")
+-- beautiful.init("/usr/share/awesome/themes/sky/theme.lua")
+-- beautiful.init("/usr/share/awesome/themes/zenburn/theme.lua")
 
 -- This is used later as the default terminal, editor, etc. to run.
 terminal = "terminator"
@@ -63,7 +67,7 @@ myawesomemenu = {
 	{ "manual", terminal .. " -e man awesome" },
 	{ "edit config", editor_cmd .. " " .. awful.util.getdir("config") .. "/rc.lua" },
 	{ "restart", awesome.restart },
-	{ "quit", awesome.quit }
+	--{ "quit", awesome.quit }
 }
 
 mymainmenu = awful.menu({ items = {{ "browser", browser},
@@ -113,11 +117,11 @@ tags = {}
 for s = 1, screen.count() do
 	-- Each screen has its own tag table.
 	tags[s] = awful.tag({ 1, 2, 3, 4, 5 }, s, awful.layout.suit.tile.right)
-	awful.tag.setproperty(tags[s][1], "mwfact", 0.65)
-	awful.tag.setproperty(tags[s][2], "mwfact", 0.65)
-	awful.tag.setproperty(tags[s][3], "mwfact", 0.65)
-	awful.tag.setproperty(tags[s][4], "mwfact", 0.65)
-	awful.tag.setproperty(tags[s][5], "mwfact", 0.65)
+	awful.tag.setproperty(tags[s][1], "mwfact", 0.60)
+	awful.tag.setproperty(tags[s][2], "mwfact", 0.60)
+	awful.tag.setproperty(tags[s][3], "mwfact", 0.60)
+	awful.tag.setproperty(tags[s][4], "mwfact", 0.60)
+	awful.tag.setproperty(tags[s][5], "mwfact", 0.60)
 end
 -- }}}
 
@@ -167,7 +171,7 @@ memwidget:set_color("#A5A574")
 -- Register widget
 vicious.cache(vicious.widgets.mem)
 vicious.register(memwidget, vicious.widgets.mem, "$1", 3)
-awful.widget.layout.margins[memwidget.widget] = { top = 1, right = 3 }
+awful.widget.layout.margins[memwidget.widget] = { top = 1, right = 3, left = 3 }
 
 -- Initialize widget
 net_tx_widget = awful.widget.graph()
@@ -191,7 +195,33 @@ net_rx_widget:set_color("#AEC6D8")
 net_rx_widget:set_border_color("#0a0a0a")
 -- Register widget
 vicious.register(net_rx_widget, vicious.widgets.net_rx, "$0", 1)
-awful.widget.layout.margins[net_rx_widget.widget] = { top = 1, left = 1 }
+awful.widget.layout.margins[net_rx_widget.widget] = { top = 1, right = 1, left = 1 }
+
+-- Initialize widget
+cpu3widget = awful.widget.graph()
+-- Graph properties
+cpu3widget:set_width(18)
+cpu3widget:set_height(17)
+cpu3widget:set_background_color("#333333")
+cpu3widget:set_color("#AEC6D8")
+cpu3widget:set_border_color("#0a0a0a")
+--cpu3widget:set_gradient_colors({ "#285577", "#285577", "#AEC6D8" })
+-- Register widget
+vicious.register(cpu3widget, vicious.widgets.cpu, "$3", 3)
+awful.widget.layout.margins[cpu3widget.widget] = { top = 1, right = 1, left = 1 }
+
+-- Initialize widget
+cpu4widget = awful.widget.graph()
+-- Graph properties
+cpu4widget:set_width(18)
+cpu4widget:set_height(17)
+cpu4widget:set_background_color("#333333")
+cpu4widget:set_color("#AEC6D8")
+cpu4widget:set_border_color("#0a0a0a")
+--cpu4widget:set_gradient_colors({ "#285577", "#285577", "#AEC6D8" })
+-- Register widget
+vicious.register(cpu4widget, vicious.widgets.cpu, "$4", 3)
+awful.widget.layout.margins[cpu4widget.widget] = { top = 1, right = 3, left = 1 }
 
 -- Initialize widget
 cpu1widget = awful.widget.graph()
@@ -204,7 +234,7 @@ cpu1widget:set_border_color("#0a0a0a")
 --cpu1widget:set_gradient_colors({ "#285577", "#285577", "#AEC6D8" })
 -- Register widget
 vicious.register(cpu1widget, vicious.widgets.cpu, "$2", 3)
-awful.widget.layout.margins[cpu1widget.widget] = { top = 1, left = 1 }
+awful.widget.layout.margins[cpu1widget.widget] = { top = 1, right = 1, left = 1 }
 
 -- Initialize widget
 cpu2widget = awful.widget.graph()
@@ -217,7 +247,7 @@ cpu2widget:set_border_color("#0a0a0a")
 --cpu2widget:set_gradient_colors({ "#285577", "#285577", "#AEC6D8" })
 -- Register widget
 vicious.register(cpu2widget, vicious.widgets.cpu, "$3", 3)
-awful.widget.layout.margins[cpu2widget.widget] = { top = 1, right = 3 }
+awful.widget.layout.margins[cpu2widget.widget] = { top = 1, right = 1, left = 1 }
 
 -- Traffic widget
 -- checkout active connection:
@@ -359,7 +389,11 @@ for s = 1, screen.count() do
         net_tx_widget.widget,
         downarr,
         net_rx_widget.widget,
+        separator,
         memwidget.widget,
+        separator,
+        cpu4widget.widget,
+        cpu3widget.widget,
         cpu2widget.widget,
         cpu1widget.widget,
         mytasklist[s],
@@ -505,7 +539,7 @@ for i = 1, keynumber do
                           awful.client.toggletag(tags[client.focus.screen][i])
                       end
                   end),
-        awful.key({"Control",}, "Shift_L", function () mylswitcher.switch() end),
+        awful.key({"Mod1"}, "space", function () mylswitcher.switch() end),
         awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("amixer sset Master 2+") end),
         awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("amixer sset Master 2-") end),
         awful.key({}, "XF86AudioMute", function () awful.util.spawn("amixer sset Master toggle") end))
@@ -535,10 +569,10 @@ awful.rules.rules = {
       properties = { opacity = 0.8 } },
     { rule_any = { class = floatingapps },
       properties = { floating = true } },
-    { rule = { class = "Pidgin" },
-      properties = { tag = tags[1][5]} },
-    { rule = { class = "Skype" },
-      properties = { tag = tags[1][5] } },
+    { rule = { instance = "crx_nckgahadagoaajjgafhacjanaoiihapd" },
+      properties = { floating = true } }
+--    { rule = { class = "Skype" },
+--      properties = { tag = tags[1][5] } },
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { tag = tags[1][2] } },
@@ -549,7 +583,7 @@ awful.rules.rules = {
 -- Signal function to execute when a new client appears.
 client.add_signal("manage", function (c, startup)
     -- Add a titlebar
-    if c.class == "Skype" or c.class == "Pidgin" or c.class == "MPlayer"
+    if c.class == "Skype" or c.class == "Pidgin" or c.class == "MPlayer" or c.instance == "crx_nckgahadagoaajjgafhacjanaoiihapd"
         or c.class == "gimp" then
             awful.titlebar.add(c, { modkey = modkey })
     end
