@@ -10,6 +10,10 @@ filetype plugin indent on
 " Open the definition in a horizontal tab
 map <A-]> :sp <CR>:exec("tag ".expand("<cword>"))<CR>
 
+" awesome helper
+inoremap <A-m> <C-^>
+cnoremap <A-m> <C-^>
+
 set sessionoptions=blank,buffers,folds,globals,options,resize,sesdir,tabpages,winpos,winsize
 set spell
 set spelllang=ru,en
@@ -482,3 +486,4 @@ function! Wrap(textwidth, hyphen)
     call Wrap( a:textwidth, a:hyphen )
   endif
 endfunction
+

@@ -29,7 +29,7 @@ beautiful.init("/home/hoxnox/.config/awesome/themes/hoxnox.lua")
 
 -- This is used later as the default terminal, editor, etc. to run.
 terminal = "terminator"
-browser = "chromium"
+browser = "google-chrome"
 filemanager = "pcmanfm"
 imcli = "pidgin"
 emailcli = "thunderbird"
@@ -128,8 +128,8 @@ end
 -- {{{ separators and spaces
 separator = widget({type="textbox", align="right"})
 separator.text = '<span color="#333333">|</span>'
-uparr = widget({type="textbox", align="right"})       
-uparr.text = '<span color="#AEC6D8">⇑</span>'         
+uparr = widget({type="textbox", align="right"})
+uparr.text = '<span color="#AEC6D8">⇑</span>'
 downarr = widget({type="textbox", align="right"})
 downarr.text = '<span color="#AEC6D8">⇓</span>'
 space = widget({type="textbox", align="right"})
@@ -479,7 +479,7 @@ function sendkey(codes, time)
       fakekeys[1]:stop()
       table.remove(fakekeys, 1)
     end
-    local t = timer({ timeout = 0.1 })
+    local t = timer({ timeout = time })
     t:add_signal("timeout", f)
     t:start()
     table.insert(fakekeys, t)
@@ -539,11 +539,20 @@ for i = 1, keynumber do
                           awful.client.toggletag(tags[client.focus.screen][i])
                       end
                   end),
-        awful.key({"Mod1"}, "space", function () mylswitcher.switch() end),
         awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("amixer sset Master 2+") end),
         awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("amixer sset Master 2-") end),
         awful.key({}, "XF86AudioMute", function () awful.util.spawn("amixer sset Master toggle") end))
 end
+
+globalkeys = awful.util.table.join(globalkeys,
+	awful.key({"Mod1"}, "space", nil, function ()
+		if client.focus.class ~= "Gvim" then
+			mylswitcher.switch()
+		else
+			root.fake_input("key_press", 58)
+			root.fake_input("key_release", 58)
+		end
+	end))
 
 clientbuttons = awful.util.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
@@ -580,6 +589,14 @@ awful.rules.rules = {
 -- }}}
 
 -- {{{ Signals
+client.add_signal("focus", function (c)
+	c.border_color = beautiful.border_focus
+	-- keep english layout for vim
+	if c.class == "Gvim" and mylswitcher.current == 2 then
+		mylswitcher.switch()
+	end
+end)
+
 -- Signal function to execute when a new client appears.
 client.add_signal("manage", function (c, startup)
     -- Add a titlebar
@@ -611,7 +628,6 @@ client.add_signal("manage", function (c, startup)
     end
 end)
 
-client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 
